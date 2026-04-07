@@ -9,7 +9,7 @@ public static void main(String[] args) {
        System.out.print("digite a linha que deseja inserir: ");
        int linha = input.nextInt()-1;
        System.out.println();
-       System.out.print("digite a posição que voce deseja: ");
+       System.out.print("digite a coluna que voce deseja: ");
        int posicao = input.nextInt()-1;
        System.out.println();
        board.jogada(posicao,linha,numero);

@@ -13,8 +13,8 @@ public class Board {
         for (int i = 0; i < 37; i++) {
             Random nrand = new Random();
             int numero = nrand.nextInt(9) + 1;
-            Random posicao = new Random();
-            int pescolhida = posicao.nextInt(9);
+            Random coluna = new Random();
+            int pescolhida = coluna.nextInt(9);
             Random  lescolhida = new Random();
             int nlescolhida = lescolhida.nextInt(9);
             if(validarNumero(numero,pescolhida,nlescolhida)){
@@ -24,25 +24,35 @@ public class Board {
             }
 
 
-    Boolean validarNumero(Integer numero,Integer posicao,Integer linha){
-        boolean valido = false;
-        if(!matrizeslinha.get(linha).contains(numero)){
-            int j;
-            for (j = 0; j < 9; j++) {
-                if(matrizeslinha.get(j).get(posicao).equals(numero)) {
-                    break;
-                }
-            }
-            if (j==9){
-                valido = true;
+    Boolean validarNumero(Integer numero, Integer coluna, Integer linha) {
+        if (matrizeslinha.get(linha).contains(numero)) {
+            return false;
+        }
+
+        for (int i = 0; i < 9; i++) {
+            if (matrizeslinha.get(i).get(coluna).equals(numero)) {
+                return false;
             }
         }
-        return valido;
+
+
+        int inicioLinha = (linha / 3) * 3;
+        int inicioColuna = (coluna / 3) * 3;
+
+        for (int i = inicioLinha; i < inicioLinha + 3; i++) {
+            for (int j = inicioColuna; j < inicioColuna + 3; j++) {
+                if (matrizeslinha.get(i).get(j).equals(numero)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
-    void jogada(Integer posicao,Integer linha, Integer numero){
-        if (validarNumero(numero, posicao, linha) && matrizeslinha.get(linha).get(posicao) == 0){
-        matrizeslinha.get(linha).set(posicao,numero);
+    void jogada(Integer coluna,Integer linha, Integer numero){
+        if (validarNumero(numero, coluna, linha) && matrizeslinha.get(linha).get(coluna) == 0){
+        matrizeslinha.get(linha).set(coluna,numero);
     }else {
         System.out.println("jogada invalida!!!");
     }
